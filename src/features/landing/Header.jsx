@@ -1,6 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
-function Header() {
+function Header(props) {
+  var {username,role} = JSON.parse(window.localStorage.getItem("user"));
+  // var [isLoggedIn,setisLoggedIn] = useState(false)
+  var navigate = useNavigate()
+
+  function signOut(){
+    // setisLoggedIn(true);
+    window.localStorage.removeItem("user");
+    navigate('/login');
+  // console.log(username);
+    
+
+  }
+  console.log(props.isLoggedIn);
   return (
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
@@ -10,10 +24,9 @@ function Header() {
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">CTS</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="#">Dashboard</a>
+                    {
+                      username ? (<a class="nav-link" onClick={()=>{signOut()}}>LogOut</a>) : (<a class="nav-link" >Login</a>)
+                    }
                     </li>
                 </ul>
                 </div>

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { useLazyAuthenticateuserQuery } from '../../services/userapi';
 import { useNavigate } from 'react-router-dom';
+import Header from '../landing/Header';
 
 function Login() {
   var [loginFn] = useLazyAuthenticateuserQuery();
+  var [isLoggedIn, setisLoggedIn] = useState(false)
   var navigate = useNavigate();
   
   const loginForm = useFormik({
@@ -19,6 +21,7 @@ function Login() {
           alert("Please Enter a valid username and password")
         }
         else{
+          setisLoggedIn(true);
           navigate("/dashboard");
         }
       })
@@ -35,6 +38,7 @@ function Login() {
         <input type='text' name='password' onChange={loginForm.handleChange}></input><br/><br/>
         <button>Login</button>
       </form>
+      {/* <Header isLoggedIn = {isLoggedIn}/> */}
     </div>
     
     
